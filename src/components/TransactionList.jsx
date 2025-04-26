@@ -9,9 +9,9 @@ function TransactionList({ transactions, deleteTransaction, onEdit }) {
         {transactions.map(t => (
           <li key={t.id} className="border-b py-1 flex justify-between">
             <span>{t.date} - {t.type} - {t.category}: ${t.amount}</span>
-            <div className="flex space-x-2">
-              <button onClick={() => onEdit(t)} className="text-blue-500">Edit</button>
-              <button onClick={() => deleteTransaction(t.id)} className="text-red-500">Delete</button>
+            <div className="transaction-buttons">
+              <button onClick={() => onEdit(t)} className="edit">Edit</button>
+              <button onClick={() => deleteTransaction(t.id)} className="delete">Delete</button>
             </div>
           </li>
         ))}
