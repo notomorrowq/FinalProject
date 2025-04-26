@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function TransactionForm({ addTransaction }) {
+function TransactionForm({ addTransaction, editingTransaction, updateTransaction, setEditingTransaction }) {
+
   const [form, setForm] = useState({ type: 'expense', category: '', description: '', amount: '', date: '' });
 
   const handleChange = e => {
@@ -10,9 +11,27 @@ function TransactionForm({ addTransaction }) {
   const handleSubmit = e => {
     e.preventDefault();
     if (!form.amount || !form.category || !form.date) return;
-    addTransaction({ ...form, amount: parseFloat(form.amount) });
+    if (editingTransaction) {
+      updateTransaction(editingTransaction.id, { ...form, amount: parseFloat(form.amount) });
+      setEditingTransaction(null);
+    } else {
+      addTransaction({ ...form, amount: parseFloat(form.amount) });
+    }
     setForm({ type: 'expense', category: '', description: '', amount: '', date: '' });
+    
   };
+
+  useEffect(() => {
+    if (editingTransaction) {
+      setForm({
+        type: editingTransaction.type,
+        category: editingTransaction.category,
+        description: editingTransaction.description,
+        amount: editingTransaction.amount,
+        date: editingTransaction.date,
+      });
+    }
+  }, [editingTransaction]);
 
   return (
     <div className="transactionfrom-container">

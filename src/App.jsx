@@ -14,6 +14,9 @@ function App() {
     amountRange: [0, Infinity],
   });
 
+  const [editingTransaction, setEditingTransaction] = useState(null);
+
+
   const addTransaction = (transaction) => {
     setTransactions([...transactions, { ...transaction, id: Date.now() }]);
   };
@@ -21,9 +24,13 @@ function App() {
   const updateTransaction = (id, updated) => {
     setTransactions(transactions.map(t => (t.id === id ? { ...t, ...updated } : t)));
   };
-
+  
   const deleteTransaction = (id) => {
     setTransactions(transactions.filter(t => t.id !== id));
+  };
+
+  const handleEdit = (transaction) => {
+    setEditingTransaction(transaction);
   };
 
   const applyFilters = () => {
@@ -40,12 +47,12 @@ function App() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Budget Tracker</h1>
-      <TransactionForm addTransaction={addTransaction} />
+      <TransactionForm addTransaction={addTransaction} editingTransaction={editingTransaction} updateTransaction={updateTransaction} setEditingTransaction={setEditingTransaction} />
       <Filters filters={filters} setFilters={setFilters} />
       <TransactionList
         transactions={applyFilters()}
         deleteTransaction={deleteTransaction}
-        updateTransaction={updateTransaction}
+        onEdit={handleEdit}
       />
       <Charts transactions={applyFilters()} />
       <CSVLink data={transactions} filename="transactions.csv" className="btn mt-4">Export CSV</CSVLink>
