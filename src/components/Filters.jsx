@@ -14,7 +14,7 @@ function Filters({ filters, setFilters }) {
   };
 
   return (
-    <div className="mb-4 space-y-2">
+    <div className="filters-container">
       <select name="type" value={filters.type} onChange={handleChange} className="border p-1">
         <option value="">All Types</option>
         <option value="income">Income</option>
