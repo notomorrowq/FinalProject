@@ -21,8 +21,8 @@ function Filters({ filters, setFilters }) {
         <option value="expense">Expense</option>
       </select>
       <input type="text" name="category" placeholder="Category" value={filters.category} onChange={handleChange} className="border p-1" />
-      <input type="date" name="from" onChange={e => setFilters({ ...filters, dateRange: [e.target.value, filters.dateRange[1]] })} className="border p-1" />
-      <input type="date" name="to" onChange={e => setFilters({ ...filters, dateRange: [filters.dateRange[0], e.target.value] })} className="border p-1" />
+      <input type="date" name="from" placeholder='From' onChange={e => setFilters({ ...filters, dateRange: [e.target.value, filters.dateRange[1]] })} className="border p-1" />
+      <input type="date" name="to" placeholder='To' onChange={e => setFilters({ ...filters, dateRange: [filters.dateRange[0], e.target.value] })} className="border p-1" />
       <input type="number" name="min" placeholder="Min Amount" onChange={handleAmountChange} className="border p-1" />
       <input type="number" name="max" placeholder="Max Amount" onChange={handleAmountChange} className="border p-1" />
     </div>
